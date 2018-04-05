@@ -1,6 +1,6 @@
 # Callbacks
 
-* Do quizz 1 first
+<!-- 🤔🤔🤔🤔🤔 QUIZ 1 🤔🤔🤔🤔🤔 -->
 
 ## Handling errors, error first callbacks
 
@@ -21,6 +21,8 @@ fs.readFile("./files/demofile.txt", { encoding: "utf8" }, (err, data) => {
   }
 });
 ```
+
+<!-- 🤔🤔🤔🤔🤔 QUIZ 2 + 3 🤔🤔🤔🤔🤔 -->
 
 ## Callback Hell
 
