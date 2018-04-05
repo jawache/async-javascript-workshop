@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+
+<body>
+</body>
+<p>requestAnimationFrame Counter:
+    <span id="raf_counter">0</span>
+</p>
+
+<p>setTimeout Counter:
+    <span id="st_counter">0</span>
+</p>
+
+<button onclick="main()">Start</button>
+<script> 
+    var raf_counter = 0;
+    var st_counter = 0;
+
+    function render() {
+        document.getElementById("raf_counter").textContent = raf_counter;
+        document.getElementById("st_counter").textContent = st_counter;
+    }
+
+    function log() {
+        console.log(`st ${st_counter} raf ${raf_counter}`);
+    }
+
+    function raf_loop() {
+        raf_counter++;
+        log();
+        render();
+        requestAnimationFrame(raf_loop);
+    }
+
+    function st_loop() {
+        st_counter++;
+        log();
+        render();
+        setTimeout(st_loop, 0);
+    }
+
+    function main() {
+        st_loop();
+        raf_loop();
+    }
+</script>
+
+</html>

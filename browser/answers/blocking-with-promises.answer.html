@@ -1,0 +1,23 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+
+<body>
+</body>
+<p>
+    <img src="./assets/stroke.gif" alt=""> Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quia quidem voluptates quas nam, sunt aspernatur distinctio,
+    hic, inventore quod esse? Aut error non incidunt a, dignissimos laboriosam id quo.</p>
+
+<button onclick="main()">Lock Up</button>
+<script> 
+    function main() {
+        function loop() {
+            Promise.resolve().then(loop)
+        }
+        loop();
+    }
+</script>
+
+</html>

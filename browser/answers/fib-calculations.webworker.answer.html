@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="./assets/main.css">
+</head>
+
+<body>
+</body>
+<p>
+    <img src="./assets/stroke.gif" alt=""> Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat quia quidem voluptates quas nam, sunt aspernatur distinctio,
+    hic, inventore quod esse? Aut error non incidunt a, dignissimos laboriosam id quo.</p>
+
+<button onclick="main()">Calc Fib</button>
+<script> 
+    var worker = new Worker('fib-worker.js' + '?' + (Math.random() * 1000000));
+    function main() {
+        worker.postMessage(40);
+        worker.onmessage = res => {
+            console.log("Caclulated: ", res.data);
+        }
+    }
+</script>
+
+</html>
