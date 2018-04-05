@@ -11,8 +11,8 @@ function* fileLoader(files) {...}
 
 (async () => {
   for await (let contents of fileLoader([
-    "./demofile.txt",
-    "./demofile.other.txt"
+    "./files/demofile.txt",
+    "./files/demofile.other.txt"
   ])) {
     console.log(contents);
   }

@@ -9,7 +9,7 @@
 ```js
 const fs = require("fs");
 
-fs.readFile("./demofile.txt", { encoding: "utf8" }, (err, data) => {
+fs.readFile("./files/demofile.txt", { encoding: "utf8" }, (err, data) => {
   if (err) {
     // next(err) <- can pass up the chain
 

@@ -7,7 +7,7 @@ const util = require("util");
 const fs = require("fs");
 const readFile = util.promisify(fs.readFile);
 
-const files = ["./demofile.txt", "./demofile.other.txt"];
+const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
 
 let promises = files.map(name => readFile(name, { encoding: "utf8" }));
 Promise.all(promises).then(values => {
@@ -30,7 +30,7 @@ const fileIterator = files => ({
   })
 });
 
-const files = ["./demofile.txt", "./demofile.other.txt"];
+const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
 
 (async () => {
   for await (let x of fileIterator(files)) {

@@ -10,7 +10,7 @@ function readFile(filename, encoding) {
     //TODO
   });
 }
-readFile("./demofile.txt", "utf-8")
+readFile("./files/demofile.txt", "utf-8")
     .then(...)
 });
 ```
@@ -38,7 +38,7 @@ function readFilePromise(filename, encoding) {
   });
 }
 
-readFilePromise("./demofile.txt", "utf-8")
+readFilePromise("./files/demofile.txt", "utf-8")
     .then(...) // --> Load it then zip it and then print it to screen
 });
 ```
