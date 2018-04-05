@@ -108,6 +108,27 @@ const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
 })();
 ```
 
+## Async isn't magic
+
+What does the below code print?
+
+```js
+async function printLine1() {
+  console.log("1");
+}
+
+async function printLine2() {
+  console.log("2");
+}
+
+async function main() {
+  printLine1();
+  printLine2();
+}
+main();
+console.log("Finished");
+```
+
 ## Async Iterators
 
 This feature is still in experimental phases, it hasn't been fully rolled out to all browser and it's only avaiable in node at least 9.1 behind a flag.
