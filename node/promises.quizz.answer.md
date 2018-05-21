@@ -6,17 +6,17 @@ Create a promise version of the async readFile
 const fs = require("fs");
 const util = require("util");
 
-// const readFile = util.promisify(fs.readFile);
+const readFile = util.promisify(fs.readFile);
 
-function readFile(filename, encoding) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filename, encoding, (err, data) => {
-      if (err) reject(err);
-      resolve(data);
-    });
-  });
-}
-readFile("./demofile.txt", "utf-8").then(
+// function readFile(filename, encoding) {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile(filename, encoding, (err, data) => {
+//       if (err) reject(err);
+//       resolve(data);
+//     });
+//   });
+// }
+readFile("./files/demofile.txt", "utf-8").then(
   data => console.log("File Read", data),
   err => console.error("Failed To Read File", err)
 );
@@ -51,7 +51,7 @@ function readFile(filename, encoding) {
 }
 
 // Starting to look like callback hell?
-readFile("./demofile.txt", "utf-8").then(
+readFile("./files/demofile.txt", "utf-8").then(
   data => {
     gzip(data).then(
       res => console.log(res),
@@ -72,7 +72,7 @@ const util = require("util");
 const readFile = util.promisify(fs.readFile);
 const gzip = util.promisify(zlib.gzip);
 
-readFile("./demofile.txt", "utf-8")
+readFile("./files/demofile.txt", "utf-8")
   .then(
     data => {
       return gzip(data);
@@ -165,7 +165,7 @@ readFile("./demofile.txt2", "utf-8")
   });
 ```
 
-# Answer 4
+# Answer 5
 
 ```js
 function readFileFake(sleep) {
@@ -202,13 +202,22 @@ function timeout(sleep) {
   return new Promise((resolve, reject) => setTimeout(reject, sleep, "timeout"));
 }
 
-Promise.race([publish(), timeout(3000)])
-  .then(res => {
+function safePublish() {
+  return publish().then(res => {
     if (res.status === 403) {
       return authenticate();
     }
     return res;
-  })
+  });
+}
+
+Promise.race([safePublish(), timeout(1000)])
+  // .then(res => {
+  //   if (res.status === 403) {
+  //     return authenticate();
+  //   }
+  //   return res;
+  // })
   .then(res => {
     // Process save responce
     console.log("Published");

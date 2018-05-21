@@ -1,4 +1,4 @@
-# Question 1
+# Question 1 - (10min)
 
 Create a promise version of the async readFile function
 
@@ -29,7 +29,7 @@ function zlibPromise(data) {
   });
 }
 
-function readFilePromise(filename, encoding) {
+function readFile(filename, encoding) {
   return new Promise((resolve, reject) => {
     fs.readFile(filename, encoding, (err, data) => {
       if (err) reject(err);
@@ -38,7 +38,7 @@ function readFilePromise(filename, encoding) {
   });
 }
 
-readFilePromise("./files/demofile.txt", "utf-8")
+readFile("./files/demofile.txt", "utf-8")
     .then(...) // --> Load it then zip it and then print it to screen
 });
 ```
@@ -82,7 +82,7 @@ function timeout(sleep) {
   return new Promise((resolve, reject) => setTimeout(reject, sleep, "timeout"));
 }
 
-Promise.race(...)
+Promise.race( [publish(), timeout(3000)])
   .then(...)
   .then(...)
   .catch(...);

@@ -6,15 +6,15 @@ To make this work we need to wrap our call to `cb` in either a `setImmediate` or
 
 ```js
 function doAsyncTask(cb) {
-  setImmediate(() => {
-    console.log("Async Task Calling Callback");
-    cb();
-  });
-
-  // process.nextTick(() => {
+  // setImmediate(() => {
   //   console.log("Async Task Calling Callback");
   //   cb();
   // });
+
+  process.nextTick(() => {
+    console.log("Async Task Calling Callback");
+    cb();
+  });
 }
 
 doAsyncTask(() => console.log(message));
@@ -63,6 +63,6 @@ function readFileThenDo(next) {
 try {
   readFileThenDo((_, data) => console.log(data));
 } catch (err) {
-  console.error("Do I really work?");
+  console.error(err);
 }
 ```

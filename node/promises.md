@@ -118,6 +118,8 @@ One of the nice things about Promises is that if we add a `then` handler _after_
 
 ```js
 let promise = Promise.resolve("done");
+
+let promise = Promise.resolve("done");
 promise.then(val => console.log(val)); // 'done'
 ```
 
@@ -171,6 +173,7 @@ prom.then(val => {
   console.log(val);
   return "done2";
 });
+
 prom.then(val => console.log(val)); // <-- Doesn't get passed the result of the previous then
 // 'done'
 // 'done'
@@ -263,7 +266,7 @@ const readFile = util.promisify(fs.readFile);
 
 const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
 
-let promises = files.map(name => readFile(name, { encoding: "utf8" }));
+let promises = files.map(name => readFile(name, "utf8"));
 Promise.all(promises).then(values => {
   // <-- Uses .all
   console.log(values);
@@ -279,12 +282,12 @@ let car1 = new Promise(resolve => setTimeout(resolve, 1000, "Car 1."));
 let car2 = new Promise(resolve => setTimeout(resolve, 2000, "Car 2."));
 let car3 = new Promise(resolve => setTimeout(resolve, 3000, "Car 3."));
 
-Promise.race([car1, car2, car3]).then(values => {
-  console.log("Promise Resolved", values);
+Promise.race([car1, car2, car3]).then(value => {
+  console.log("Promise Resolved", value);
 });
 ```
 
-More usefull if requesting a lot of data that all needs to return.
+<!-- More usefull if requesting a lot of data that all needs to return. -->
 
 ```js
 let car1 = new Promise((_, reject) =>

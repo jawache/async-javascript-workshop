@@ -27,48 +27,44 @@ console.log("after iteration");
 ## Example to show how yield can be used to pass out data
 
 ```js
-(() => {
-  function* range() {
-    for (let i = 0; i < 10; i++) {
-      yield i; // <-- We can return data from yield
-    }
+function* range() {
+  for (let i = 0; i < 4; i++) {
+    yield i; // <-- We can return data from yield
   }
-  const it = range();
-  console.log(it.next()); // Prints the object
-  console.log(it.next());
-  console.log(it.next());
-  console.log(it.next());
-})();
+  yield "moo";
+}
+const it = range();
+console.log(it.next()); // Prints the object
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
+console.log(it.next());
 ```
 
 ## Example to show how yield can be used in an iterator
 
 ```js
-(() => {
-  function* range() {
-    for (let i = 0; i < 10; i++) {
-      yield i;
-    }
+function* range() {
+  for (let i = 0; i < 10; i++) {
+    yield i;
   }
-  const it = range();
-  for (let x of range()) {
-    console.log(x); // Just prints the value
-  }
-})();
+}
+const it = range();
+for (let x of range()) {
+  console.log(x); // Just prints the value
+}
 ```
 
 ## Example to show how yield can be used to communicate both ways
 
 ```js
-(() => {
-  function* sayWhat() {
-    console.log(yield);
-    console.log("World");
-  }
-  const it = sayWhat();
-  it.next(); // First yield, pauses
-  it.next("Hello"); // Can pass in data again
-})();
+function* sayWhat() {
+  console.log(yield);
+  console.log("World");
+}
+const it = sayWhat();
+it.next(); // First yield, pauses
+it.next("Hello"); // Can pass in data again
 ```
 
 ## Custom Async Generators

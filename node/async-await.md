@@ -20,7 +20,7 @@ When using async/await we don't need to attach a then
 const doAsyncTask = () => Promise.resolve("done");
 async function asim() {
   // <-- mark it as `async`
-  var value = await doAsyncTask(); // <-- Don't need to call .then
+  let value = await doAsyncTask(); // <-- Don't need to call .then
   console.log(value);
 }
 asim();
@@ -77,9 +77,9 @@ asyncFunction().then(v => console.log(v)); // We can attach a then to it
 
 ```js
 const doAsyncTask = () => Promise.reject("error");
-let asyncFunction = async function() {
+const asyncFunction = async function() {
   try {
-    var value = await doAsyncTask();
+    const value = await doAsyncTask();
   } catch (e) {
     console.error(e);
     return;

@@ -20,6 +20,8 @@ Promise.all(promises).then(values => {
 
 Again convert the promise version of the multi-file loader over to using async/await but using a custom async iterator with the following syntax
 
+node --harmony-async-iteration <file.js>
+
 ```js
 const fileIterator = files => ({
   [Symbol.asyncIterator]: () => ({
@@ -30,10 +32,11 @@ const fileIterator = files => ({
   })
 });
 
-const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
-
 (async () => {
-  for await (let x of fileIterator(files)) {
+  for await (let x of fileIterator([
+    "./files/demofile.txt",
+    "./files/demofile.other.txt"
+  ])) {
     console.log(x);
   }
 })();

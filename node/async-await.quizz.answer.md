@@ -14,6 +14,20 @@ const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
 })();
 ```
 
+```js
+const util = require("util");
+const fs = require("fs");
+const readFile = util.promisify(fs.readFile);
+
+const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
+
+(async () => {
+  let promises = files.map(name => readFile(name, { encoding: "utf8" }));
+  let values = await Promise.all(promises);
+  console.log(values);
+})();
+```
+
 # Answer 2
 
 ```js
