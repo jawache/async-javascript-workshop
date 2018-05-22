@@ -32,7 +32,7 @@ can write that as an IFFE
 const doAsyncTask = () => Promise.resolve("done");
 (async function() {
   // <-- IIFE, note the async
-  var value = await doAsyncTask(); // <-- Don't need to call .then
+  let value = await doAsyncTask(); // <-- Don't need to call .then
   console.log(value);
 })();
 ```
@@ -42,7 +42,7 @@ Also it blocks
 ```js
 const doAsyncTask = () => Promise.resolve("1");
 (async function() {
-  var value = await doAsyncTask();
+  let value = await doAsyncTask();
   console.log(value);
   console.log("2"); //----> This waits before it's printed
 })();
@@ -81,7 +81,7 @@ const asyncFunction = async function() {
   try {
     const value = await doAsyncTask();
   } catch (e) {
-    console.error(e);
+    console.error("Moo: ", e);
     return;
   }
 };
@@ -135,7 +135,7 @@ This feature is still in experimental phases, it hasn't been fully rolled out to
 
 It's a subtle difference, but now you can iterate over iterators that return promises, like so:
 
-`node --harmony-async-iteration async-iterators.esnext.js`
+`node --harmony-async-iteration working.js`
 
 ```js
 (async () => {
