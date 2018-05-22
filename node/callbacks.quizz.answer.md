@@ -6,6 +6,8 @@ To make this work we need to wrap our call to `cb` in either a `setImmediate` or
 
 ```js
 function doAsyncTask(cb) {
+  // cb();
+
   // setImmediate(() => {
   //   console.log("Async Task Calling Callback");
   //   cb();
@@ -29,7 +31,11 @@ const fs = require("fs");
 
 function readFileThenDo(next) {
   fs.readFile("./blah.nofile", (err, data) => {
-    next(err, data);
+    if (err) {
+      next(err);
+    } else {
+      next(null, data);
+    }
   });
 }
 
