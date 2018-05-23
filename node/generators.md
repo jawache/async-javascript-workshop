@@ -24,7 +24,7 @@ console.log(it.next()); // Returns same ended iterator
 console.log("after iteration");
 ```
 
-## Example to show how yield can be used to pass out data
+## How to pass out data with yield
 
 ```js
 function* range() {
@@ -32,6 +32,7 @@ function* range() {
     yield i; // <-- We can return data from yield
   }
   yield "moo";
+  return "foo";
 }
 const it = range();
 console.log(it.next()); // Prints the object
@@ -39,9 +40,11 @@ console.log(it.next());
 console.log(it.next());
 console.log(it.next());
 console.log(it.next());
+console.log(it.next());
+console.log(it.next());
 ```
 
-## Example to show how yield can be used in an iterator
+## Use as an Iterator
 
 ```js
 function* range() {
@@ -49,13 +52,13 @@ function* range() {
     yield i;
   }
 }
-const it = range();
+
 for (let x of range()) {
   console.log(x); // Just prints the value
 }
 ```
 
-## Example to show how yield can be used to communicate both ways
+## yield can be used to communicate both ways
 
 ```js
 function* sayWhat() {
