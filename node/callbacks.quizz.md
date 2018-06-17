@@ -22,12 +22,20 @@ const fs = require("fs");
 
 function readFileThenDo(next) {
   fs.readFile("./blah.nofile", (err, data) => {
-    next(data);
+    if (err) {
+      next(err);
+    } else {
+      next(null, data);
+    }
   });
 }
 
-readFileThenDo(data => {
-  console.log(data);
+readFileThenDo((err, data) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(data);
+  }
 });
 ```
 
@@ -45,7 +53,11 @@ function readFileThenDo(next) {
   });
 }
 // Hint use try..catch
-readFileThenDo(data => {
-  console.log(data);
-});
+try {
+  readFileThenDo(data => {
+    console.log(data);
+  });
+} catch (err) {
+  console.error("Moo", err);
+}
 ```

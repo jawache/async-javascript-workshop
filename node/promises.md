@@ -187,7 +187,12 @@ We can also pause execution waiting for another promise to resolve
 Promise.resolve("done")
   .then(val => {
     console.log(val);
-    return Promise.resolve("done2"); // <-- The next then waits for this promise to resolve before continueing
+
+    return new Promise(resolve => {
+      setTimeout(() => resolve("done2"), 1000);
+    });
+
+    // The next then waits for this promise to resolve before continueing
   })
   .then(val => console.log(val));
 ```
@@ -267,10 +272,12 @@ const readFile = util.promisify(fs.readFile);
 const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
 
 let promises = files.map(name => readFile(name, "utf8"));
-Promise.all(promises).then(values => {
-  // <-- Uses .all
-  console.log(values);
-});
+Promise.all(promises)
+  .then(values => {
+    // <-- Uses .all
+    console.log(values);
+  })
+  .catch(err => console.error("Error: ", err));
 ```
 
 ### Promise.race
@@ -291,17 +298,17 @@ Promise.race([car1, car2, car3]).then(value => {
 
 ```js
 let car1 = new Promise((_, reject) =>
-  setTimeout(reject, 1000, "Car 1 Crashed.")
+  setTimeout(reject, 3000, "Car 1 Crashed.")
 );
-let car2 = new Promise(resolve => setTimeout(resolve, 2000, "Car 2."));
+let car2 = new Promise(resolve => setTimeout(resolve, 1000, "Car 2."));
 let car3 = new Promise(resolve => setTimeout(resolve, 3000, "Car 3."));
 
 Promise.race([car1, car2, car3])
-  .then(values => {
-    console.log("Promise Resolved", values);
+  .then(value => {
+    console.log("Promise Resolved", value);
   })
-  .catch(errs => {
-    console.log("Promise Rejected", errs);
+  .catch(err => {
+    console.log("Promise Rejected", err);
   });
 ```
 

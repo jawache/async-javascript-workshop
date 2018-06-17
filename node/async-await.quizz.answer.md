@@ -1,5 +1,7 @@
 # Answer 1
 
+This version answers the brief but is less efficient because each file is loaded in sequence, one at a time.
+
 ```js
 const util = require("util");
 const fs = require("fs");
@@ -13,6 +15,8 @@ const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
   }
 })();
 ```
+
+This version is far more efficient, using `Promise.all` means we load both files in parralel.
 
 ```js
 const util = require("util");

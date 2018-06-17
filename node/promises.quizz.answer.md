@@ -4,18 +4,18 @@ Create a promise version of the async readFile
 
 ```js
 const fs = require("fs");
-const util = require("util");
+// const util = require("util");
 
-const readFile = util.promisify(fs.readFile);
+// const readFile = util.promisify(fs.readFile);
 
-// function readFile(filename, encoding) {
-//   return new Promise((resolve, reject) => {
-//     fs.readFile(filename, encoding, (err, data) => {
-//       if (err) reject(err);
-//       resolve(data);
-//     });
-//   });
-// }
+function readFile(filename, encoding) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filename, encoding, (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    });
+  });
+}
 readFile("./files/demofile.txt", "utf-8").then(
   data => console.log("File Read", data),
   err => console.error("Failed To Read File", err)
@@ -169,23 +169,56 @@ readFile("./demofile.txt2", "utf-8")
 
 ```js
 function readFileFake(sleep) {
-  return new Promise(resolve => setTimeout(resolve, sleep));
+  return new Promise(resolve => setTimeout(resolve, sleep, "read"));
+}
+
+function timeout(sleep) {
+  return new Promise((_, reject) => setTimeout(reject, sleep, "timeout"));
+}
+
+Promise.race([readFileFake(5000), timeout(1000)])
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+```
+
+# Answer 6
+
+```js
+function authenticate() {
+  console.log("Authenticating");
+  return new Promise(resolve => setTimeout(resolve, 2000, { status: 200 }));
+}
+
+function publish() {
+  console.log("Publishing");
+  return new Promise(resolve => setTimeout(resolve, 2000, { status: 403 }));
 }
 
 function timeout(sleep) {
   return new Promise((resolve, reject) => setTimeout(reject, sleep, "timeout"));
 }
 
-Promise.race([readFileFake(5000), timeout(1000)])
-  .then(data => {
-    console.log(data);
+Promise.race([publish(), timeout(1000)])
+  .then(res => {
+    if (res.status === 403) {
+      return authenticate();
+    }
+    return res;
+  })
+  .then(res => {
+    // Process save responce
+    console.log("Published");
   })
   .catch(err => {
-    console.error("timed out");
+    if (err === "timeout") {
+      console.error("Request timed out");
+    } else {
+      console.error(err);
+    }
   });
 ```
 
-# Answer 5
+Alternative answer with safePublish returning a publish promise
 
 ```js
 function authenticate() {
@@ -212,12 +245,6 @@ function safePublish() {
 }
 
 Promise.race([safePublish(), timeout(1000)])
-  // .then(res => {
-  //   if (res.status === 403) {
-  //     return authenticate();
-  //   }
-  //   return res;
-  // })
   .then(res => {
     // Process save responce
     console.log("Published");
