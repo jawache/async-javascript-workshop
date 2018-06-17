@@ -35,7 +35,7 @@ const util = require("util");
 function gzip(data) {
   return new Promise((resolve, reject) => {
     zlib.gzip(data, (err, result) => {
-      if (err) reject(err);
+      if (err) return reject(err);
       resolve(result);
     });
   });
@@ -44,7 +44,7 @@ function gzip(data) {
 function readFile(filename, encoding) {
   return new Promise((resolve, reject) => {
     fs.readFile(filename, encoding, (err, data) => {
-      if (err) reject(err);
+      if (err) return reject(err);
       resolve(data);
     });
   });
@@ -101,7 +101,7 @@ const util = require("util");
 function gzip(data) {
   return new Promise((resolve, reject) => {
     zlib.gzip(data, (err, result) => {
-      if (err) reject(err);
+      if (err) return reject(err);
       resolve(result);
     });
   });
@@ -110,7 +110,7 @@ function gzip(data) {
 function readFile(filename, encoding) {
   return new Promise((resolve, reject) => {
     fs.readFile(filename, encoding, (err, data) => {
-      if (err) reject(err);
+      if (err) return reject(err);
       resolve(data);
     });
   });
@@ -128,7 +128,7 @@ readFile("./demofile.txt2", "utf-8")
   });
 ```
 
-* Again, throw doesn't work as you expect.
+- Again, throw doesn't work as you expect.
 
 ```js
 const fs = require("fs");
@@ -138,7 +138,7 @@ const util = require("util");
 function gzip(data) {
   return new Promise((resolve, reject) => {
     zlib.gzip(data, (err, result) => {
-      if (err) reject(err);
+      if (err) return reject(err);
       resolve(result);
     });
   });

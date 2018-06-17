@@ -39,6 +39,7 @@ console.log(it.next());
 console.log(it.next());
 console.log(it.next());
 console.log(it.next());
+console.log(it.next());
 ```
 
 ## Example to show how yield can be used in an iterator
@@ -49,7 +50,7 @@ function* range() {
     yield i;
   }
 }
-const it = range();
+
 for (let x of range()) {
   console.log(x); // Just prints the value
 }

@@ -32,7 +32,7 @@ can write that as an IFFE
 const doAsyncTask = () => Promise.resolve("done");
 (async function() {
   // <-- IIFE, note the async
-  var value = await doAsyncTask(); // <-- Don't need to call .then
+  let value = await doAsyncTask(); // <-- Don't need to call .then
   console.log(value);
 })();
 ```
@@ -73,7 +73,7 @@ asyncFunction().then(v => console.log(v)); // We can attach a then to it
 
 ## Handling Errors
 
-* Because it's now sync we can use try/catch, the catch value is what was returned in the reject
+- Because it's now sync we can use try/catch, the catch value is what was returned in the reject
 
 ```js
 const doAsyncTask = () => Promise.reject("error");
@@ -145,9 +145,9 @@ It's a subtle difference, but now you can iterate over iterators that return pro
 
   const files = ["./files/demofile.txt", "./files/demofile.other.txt"];
   const promises = files.map(name => readFile(name, "utf8"));
-  for await (let file of promises) {
+  for await (let content of promises) {
     //<-- See the await is on the for
-    console.log(file);
+    console.log(content);
   }
 })();
 ```
@@ -193,14 +193,14 @@ const customAsyncIterator = () => ({
   [Symbol.asyncIterator]: () => ({
     x: 0,
     next() {
-      let y = this.x++;
-
       if (this.x > 100) {
         return Promise.resolve({
           done: true,
           value: this.x
         });
       }
+
+      let y = this.x++;
 
       return Promise.resolve({
         done: false,
