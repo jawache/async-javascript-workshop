@@ -1,4 +1,0 @@
-{
-  "presets": ["env"],
-  "plugins": ["transform-async-generator-functions"]
-}
