@@ -8,7 +8,10 @@ Make it run without errors but you cannot change the location of the `let` state
 function doAsyncTask(cb) {
   cb();
 }
-doAsyncTask(_ => console.log(message));
+setImmediate(() => {
+  doAsyncTask(_ => console.log(message));
+})
+
 
 let message = "Callback Called";
 ```
@@ -22,20 +25,12 @@ const fs = require("fs");
 
 function readFileThenDo(next) {
   fs.readFile("./blah.nofile", (err, data) => {
-    if (err) {
-      next(err);
-    } else {
       next(null, data);
-    }
   });
 }
 
 readFileThenDo((err, data) => {
-  if (err) {
-    console.error(err);
-  } else {
     console.log(data);
-  }
 });
 ```
 
