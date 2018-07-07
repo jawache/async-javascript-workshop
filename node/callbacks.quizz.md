@@ -8,10 +8,8 @@ Make it run without errors but you cannot change the location of the `let` state
 function doAsyncTask(cb) {
   cb();
 }
-setImmediate(() => {
-  doAsyncTask(_ => console.log(message));
-})
 
+doAsyncTask(_ => console.log(message)); 
 
 let message = "Callback Called";
 ```
