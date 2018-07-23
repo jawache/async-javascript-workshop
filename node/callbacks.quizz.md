@@ -15,7 +15,7 @@ let message = "Callback Called";
 
 # Question 2
 
-The below code swallows the error and doesn't is up the chain, make it pass the error up the stack using the next callback.
+The below code swallows the error and doesn't pass it up the chain, make it pass the error up the stack using the next callback.
 
 ```js
 const fs = require("fs");
