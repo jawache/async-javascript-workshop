@@ -118,8 +118,6 @@ One of the nice things about Promises is that if we add a `then` handler _after_
 
 ```js
 let promise = Promise.resolve("done");
-
-let promise = Promise.resolve("done");
 promise.then(val => console.log(val)); // 'done'
 ```
 
