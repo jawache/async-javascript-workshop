@@ -1,3 +1,17 @@
 __OLD__
 /node_modules
 working.js
+
+## IDEA ignores
+.idea/
+*.iml
+
+## Miscellaneous ignores
+*.DS_STORE
+*~
+*.tmp
+*.tar.gz
+*.tar
+*.tgz
+*.zip
+*.rar
